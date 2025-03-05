@@ -1,36 +1,113 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Denty Smart Storage System
+
+A Next.js application for managing dental supplies storage with a 4x4 grid compartment system.
+
+## Features
+
+- 16 compartment grid overview
+- Real-time quantity management
+- Withdrawal functionality for each compartment
+- Status bar showing total products and occupied compartments
+- Navigation menu with Overview and Settings pages
+
+## Tech Stack
+
+- **Framework**: Next.js 14 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **State Management**: React Hooks
+- **API**: Next.js API Routes
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/shahrzadav/denty-smart-storage.git
+cd denty-smart-storage
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the development server:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## Learn More
+## Architecture
 
-To learn more about Next.js, take a look at the following resources:
+### Frontend Components
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Layout Component** (`app/components/Layout.tsx`)
+   - Provides consistent layout across pages
+   - Contains navigation menu and status bar
+   - Manages global state for total products and occupied compartments
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. **CompartmentGrid Component** (`app/components/CompartmentGrid.tsx`)
+   - Displays 4x4 grid of compartments
+   - Manages compartment state and withdrawal operations
+   - Handles error and success messages
 
-## Deploy on Vercel
+3. **NumberPad Component** (`app/components/NumberPad.tsx`)
+   - Custom numeric input for withdrawals
+   - Validates input against available quantity
+   - Provides clear and submit functionality
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### API Routes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **GET /api/compartments**
+   - Returns list of all compartments
+   - Includes product information and quantities
+
+2. **PUT /api/compartments**
+   - Updates compartment quantities
+   - Validates withdrawal amounts
+   - Returns updated compartment data
+
+### Data Flow
+
+1. Initial load:
+   - Frontend fetches compartment data via GET request
+   - Displays current quantities and status
+
+2. Withdrawal process:
+   - User enters quantity via NumberPad
+   - Frontend validates input
+   - PUT request updates quantity
+   - UI updates to reflect changes
+
+### Error Handling
+
+- Input validation on both frontend and backend
+- Clear error messages for users
+- Quantity validation before withdrawal
+- API error responses with appropriate status codes
+
+## Future Improvements
+
+1. Add authentication system
+2. Implement persistent storage with database
+3. Add unit and integration tests
+4. Add inventory alerts for low quantities
+5. Implement Settings page functionality
+
+## Running Tests
+
+(Note: Tests to be implemented in future updates)
+
+To run tests:
+```bash
+npm test
+```
+
